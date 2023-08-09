@@ -16,6 +16,8 @@ namespace textGameMaybe
         protected int speed;
         protected int armour;
 
+
+        // Getter and Setter for the protected health variable. 
         public int Health
         {
             get { return health; }
