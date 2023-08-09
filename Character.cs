@@ -22,7 +22,12 @@ namespace textGameMaybe
         public int Health
         {
             get { return health; }
-            set { health = value; }
+
+            set 
+            {
+                health = value;
+                
+            }
         }
 
         public int Strength
