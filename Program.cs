@@ -17,9 +17,8 @@ namespace textGameMaybe
              * HARD VERSION: making the characters have two or three attacks and the player can pick one.*/
 
 
-            // intializing global statistics + variables:
+            /* intializing global statistics + variables:
 
-            /*
             
             Random dice = new Random();
             bool success = false;
