@@ -5,6 +5,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
+// PLEASE GOD COMMENT THIS
+
 namespace textGameMaybe
 {
     internal class PlayerCharacter : Character
