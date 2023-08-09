@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 // PLEASE GOD COMMENT THIS
-// whatever the fuck you want boss
+// whatever the fuck you want boss - this is showing how to merge
 
 namespace textGameMaybe
 {
