@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 // PLEASE GOD COMMENT THIS
+// whatever the fuck you want boss
 
 namespace textGameMaybe
 {

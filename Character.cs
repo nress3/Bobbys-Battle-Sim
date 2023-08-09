@@ -18,6 +18,7 @@ namespace textGameMaybe
 
 
         // Getter and Setter for the protected health variable. 
+        //more github practice.
         public int Health
         {
             get { return health; }
