@@ -159,7 +159,6 @@ namespace textGameMaybe
 
         private void ClassSelect()
         {
-            string readResponse = "";
 
             Console.WriteLine("Choose your class from the list below.");
             Console.WriteLine("Each class has it's own special ability that can be used 3 times each game.\n");
@@ -170,38 +169,32 @@ namespace textGameMaybe
             
             }
 
-            bool success = false;
+            bool selectionInRange = false;
             do
             {
-                int result = 0;
-                Console.WriteLine("Type the number of your choice and press enter.");
-                readResponse = Console.ReadLine();
-                if (readResponse != "")
-                {
-                    success = int.TryParse(readResponse, out result);
-                }
-                else continue;
+                int classSelect = GetNumberSelection();
+                selectionInRange = true;
 
-                switch (result)
+                switch (classSelect)
                 {
                     case 1:
-                        playerClass = playerClasses[result - 1];
+                        playerClass = playerClasses[classSelect - 1];
                         break;
                     case 2:
-                        playerClass = playerClasses[result - 1];
+                        playerClass = playerClasses[classSelect - 1];
                         break;
                     case 3:
-                        playerClass = playerClasses[result - 1];
+                        playerClass = playerClasses[classSelect - 1];
                         break;
                     default:
-                        success = false;
-                        continue;
-                
+                        selectionInRange = false;
+                        break;
                 }
 
-            } while (success == false);
+            } while (selectionInRange == false);
 
-            Console.WriteLine($"You chose the {playerClass} class.\n");
+
+            Console.WriteLine($"You chose the {playerClass} class.");
             Console.ReadLine();
 
         }
@@ -232,6 +225,33 @@ namespace textGameMaybe
             } while (readResponse.ToLower() != "roll");
         
         }
+
+
+        public int GetNumberSelection()
+        {
+            int response = 0;
+            string readResponse = "";
+            bool success = false;
+
+            do
+            {
+                Console.WriteLine("Type the number of your selection and press enter.");
+                readResponse = Console.ReadLine();
+
+                if (readResponse != "")
+                {
+                    success = int.TryParse(readResponse, out response);
+                }
+                else success = false;
+
+            } while (success == false);
+
+            return response;
+        }
+
+
+
+
 
     }
 }

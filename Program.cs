@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -502,9 +503,19 @@ namespace textGameMaybe
             */
 
             Random random = new Random();
+            string dungeon = "";
+            string boss = "";
+            string treasure = "";
+            string[] dungeonChoices = { "Dungeon of Dispair", "Dungeon of Greed", "Dungeon of Wrath" };
+            string[] bossChoices = { "The Lord of Dispair", "The Taker of all Things", "The Cruel One\t" };
+            string[] treasureChoices = { "The Soul Scythe", "The Daggers of Wealth", "The Mace of Suffering" };
 
             Console.WriteLine("Thank you for playing Bobby's battle sim! Have fun ya freak.");
             PlayerCharacter player = new PlayerCharacter();
+
+            DungeonSelect();
+
+
             BanditEnemy bandito = new BanditEnemy();
 
 
@@ -522,9 +533,50 @@ namespace textGameMaybe
             Battle(player.PlayerName, bandito.banditName, 4, 2, 10);
             
 
+            void DungeonSelect()
+            {
+                Console.WriteLine("You can choose one of three dungeons to enter and explore. Each one contains a different boss enemy and treasure. They are listed below.");
+                for (int i = 0; i < dungeonChoices.Length; i++)
+                {
+                    Console.WriteLine($"Dungeon {i + 1}: {dungeonChoices[i]}\t Boss: {bossChoices[i]}\t Treasure: {treasureChoices[i]}");
+                }
 
+                bool selectionInRange = false;
+                do
+                {
+                    
+                    int dungeonSelection = player.GetNumberSelection();
+                    selectionInRange = true;
+
+                    switch (dungeonSelection) 
+                    {
+                        case 1:
+                            dungeon = dungeonChoices[dungeonSelection - 1];
+                            boss = bossChoices[dungeonSelection - 1];
+                            treasure = treasureChoices[dungeonSelection - 1];
+                            break;
+                        case 2:
+                            dungeon = dungeonChoices[dungeonSelection - 1];
+                            boss = bossChoices[dungeonSelection - 1];
+                            treasure = treasureChoices[dungeonSelection - 1];
+                            break;
+                        case 3:
+                            dungeon = dungeonChoices[dungeonSelection - 1];
+                            boss = bossChoices[dungeonSelection - 1];
+                            treasure = treasureChoices[dungeonSelection - 1];
+                            break;
+                        default:
+                            selectionInRange = false;
+                            break;
+                    }
+                } while (selectionInRange == false);
+
+                Console.WriteLine($"You chose to enter {dungeon} to search for {treasure}. You will have to face {boss} in the end. Good Luck.");
+                Console.ReadLine();
+            }
 
         }
+
     }
 }
 
