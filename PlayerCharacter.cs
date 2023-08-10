@@ -39,6 +39,9 @@ namespace textGameMaybe
 
         public PlayerCharacter()
         {
+            health = 200;
+            numberOfAttacks = 1;
+
             EnterName();
             StatsRoll();
             ClassSelect();

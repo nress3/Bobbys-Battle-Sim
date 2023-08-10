@@ -18,8 +18,7 @@ namespace textGameMaybe
         protected int weaponDamage;
 
 
-        // Getter and Setter for the protected health variable. 
-        //more github practice.
+
         public int Health
         {
             get { return health; }

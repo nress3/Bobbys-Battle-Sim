@@ -15,13 +15,28 @@ namespace textGameMaybe
             get { return headBanditName; }
         }
 
-        
-        public int banditHealthPoints = 15;
-        public int banditStrength = 3;
-        public int banditToughness = 2;
-        public string[] banditWeaponChoices = { "knife", "sword", "club", "ax" };
-        public int[] banditWeaponDamageOPtions = { 1, 3, 2, 2 };
-        public string banditweapon;
-        public int banditWeaponDamage;
+ 
+
+        protected string[] banditWeaponChoices = { "knife", "sword", "club", "ax" };
+        protected string banditweapon;
+        protected int banditWeaponDamage;
+
+
+        BanditEnemy()
+        {
+            banditweapon = banditWeaponChoices[banditRandom.Next(banditWeaponChoices.Length)];
+            banditWeaponDamage = banditRandom.Next(0, 4);
+            health = banditRandom.Next(10, 16);
+            toughness = banditRandom.Next(0, 4);
+            strength = banditRandom.Next(0, 4);
+            
+
+        }
+
+
+
+
+
+
     }
 }
