@@ -9,7 +9,12 @@ namespace textGameMaybe
     internal class BanditEnemy : Character
     {
         Random banditRandom = new Random();
-        public string banditName = "Bandito Musselini";
+        protected string headBanditName = "Bandito Musselini";
+        public string HeadBandit
+        { 
+            get { return headBanditName; }
+        }
+
         
         public int banditHealthPoints = 15;
         public int banditStrength = 3;

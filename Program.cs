@@ -528,7 +528,7 @@ namespace textGameMaybe
 
 
 
-            Battle(player.PlayerName, bandito.banditName, 4, 2, 10);
+            Battle(player.PlayerName, bandito.HeadBandit, player.Strength, 2, 10);
             
 
             void DungeonSelect()

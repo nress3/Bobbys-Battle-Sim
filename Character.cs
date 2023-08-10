@@ -15,6 +15,7 @@ namespace textGameMaybe
         protected int numberOfAttacks;
         protected int speed;
         protected int armour;
+        protected int weaponDamage;
 
 
         // Getter and Setter for the protected health variable. 

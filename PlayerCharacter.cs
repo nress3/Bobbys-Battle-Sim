@@ -33,6 +33,9 @@ namespace textGameMaybe
                                                 "\tmin strength: 3\t\tspeed: -1\tdamage: +4", 
                                                 "\t\tmin strength: 5\t\tspeed: -3\tdamage: +5", 
                                                 "\tmin strength: 1\t\tspeed: +7\tdamage: +2"};
+        private int[] weaponDamageModifiers = { 7, 3, 4 , 5, 2};
+        private int[] speedModifiers = { -5, 5, -1, -3, 7 };
+        
 
         public PlayerCharacter()
         {
@@ -66,6 +69,8 @@ namespace textGameMaybe
                             if (strength >= 6)
                             {
                                 playerWeapon = weaponChoices[weaponChoice - 1];
+                                weaponDamage = weaponDamageModifiers[weaponChoice - 1];
+                                speed += speedModifiers[weaponChoice - 1];
                             }
                             else
                             {
@@ -79,6 +84,8 @@ namespace textGameMaybe
                             if (strength >= 3)
                             {
                                 playerWeapon = weaponChoices[weaponChoice - 1];
+                                weaponDamage = weaponDamageModifiers[weaponChoice - 1];
+                                speed += speedModifiers[weaponChoice - 1];
                             }
                             else
                             {
@@ -92,6 +99,8 @@ namespace textGameMaybe
                             if (strength >= 3)
                             {
                                 playerWeapon = weaponChoices[weaponChoice - 1];
+                                weaponDamage = weaponDamageModifiers[weaponChoice - 1];
+                                speed += speedModifiers[weaponChoice - 1];
                             }
                             else
                             {
@@ -105,6 +114,8 @@ namespace textGameMaybe
                             if (strength >= 5)
                             {
                                 playerWeapon = weaponChoices[weaponChoice - 1];
+                                weaponDamage = weaponDamageModifiers[weaponChoice - 1];
+                                speed += speedModifiers[weaponChoice - 1];
                             }
                             else
                             {
@@ -116,6 +127,8 @@ namespace textGameMaybe
 
                         case 5:
                             playerWeapon = weaponChoices[weaponChoice - 1];
+                            weaponDamage = weaponDamageModifiers[weaponChoice - 1];
+                            speed += speedModifiers[weaponChoice - 1];
                             break;
 
                         default:
