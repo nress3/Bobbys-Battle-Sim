@@ -503,12 +503,16 @@ namespace textGameMaybe
             */
 
             Random random = new Random();
+            int gold = 0;
             string dungeon = "";
             string boss = "";
             string treasure = "";
             string[] dungeonChoices = { "Dungeon of Dispair", "Dungeon of Greed", "Dungeon of Wrath" };
             string[] bossChoices = { "The Lord of Dispair", "The Taker of all Things", "The Cruel One\t" };
             string[] treasureChoices = { "The Soul Scythe", "The Daggers of Wealth", "The Mace of Suffering" };
+            string roomNumber = "";
+            int roomNumberCounter = 0;
+            
 
             
             
@@ -517,8 +521,9 @@ namespace textGameMaybe
 
             DungeonSelect();
 
-
+            EnterRoom();
             BanditEnemy bandito = new BanditEnemy();
+            EnterRoom();
 
 
 
@@ -578,6 +583,34 @@ namespace textGameMaybe
                 Console.ReadLine();
 
             }
+
+            void EnterRoom()
+            {
+                roomNumberCounter++;
+                switch (roomNumberCounter)
+                {
+                    case 1:
+                        roomNumber = "first";
+                        break;
+
+                    case 2:
+                    case 3:
+                    case 4:
+                        roomNumber = "next";
+                        break;
+
+                    case 5:
+                        roomNumber = "final";
+                        break;
+                }
+                Console.WriteLine($"You enter the {roomNumber} room of the {dungeon}.");
+            
+            }
+
+
+
+
+
 
         }
 
