@@ -510,6 +510,8 @@ namespace textGameMaybe
             string[] bossChoices = { "The Lord of Dispair", "The Taker of all Things", "The Cruel One\t" };
             string[] treasureChoices = { "The Soul Scythe", "The Daggers of Wealth", "The Mace of Suffering" };
 
+            
+            
             Console.WriteLine("Thank you for playing Bobby's battle sim! Have fun ya freak.");
             PlayerCharacter player = new PlayerCharacter();
 
@@ -519,16 +521,7 @@ namespace textGameMaybe
             BanditEnemy bandito = new BanditEnemy();
 
 
-            void Battle(string attacker, string defender, int attackerStrength, int defenderToughness, int defenderHealth)
-            {
-                int attackerSwing = attackerStrength + random.Next(1, 7) - defenderToughness;
 
-                defenderHealth -= attackerSwing;
-
-                Console.WriteLine($"{attacker} did {attackerSwing} damage to {defender}. {defender} now has {defenderHealth}HP remaining.");
-                Console.ReadLine();    
-            
-            }
 
             Battle(player.PlayerName, bandito.banditName, 4, 2, 10);
             
@@ -573,6 +566,17 @@ namespace textGameMaybe
 
                 Console.WriteLine($"You chose to enter {dungeon} to search for {treasure}. You will have to face {boss} in the end. Good Luck.");
                 Console.ReadLine();
+            }
+
+            void Battle(string attacker, string defender, int attackerStrength, int defenderToughness, int defenderHealth)
+            {
+                int attackerSwing = attackerStrength + random.Next(1, 7) - defenderToughness;
+
+                defenderHealth -= attackerSwing;
+
+                Console.WriteLine($"{attacker} did {attackerSwing} damage to {defender}. {defender} now has {defenderHealth}HP remaining.");
+                Console.ReadLine();
+
             }
 
         }

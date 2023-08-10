@@ -201,9 +201,9 @@ namespace textGameMaybe
 
         private void StatsRoll()
         {
-            Console.WriteLine("To Begin you will roll d10's for your base stats, strength, toughness, and speed.\n");
+            Console.WriteLine("To Begin you will roll d10's for your base stats: strength, toughness, and speed.\n");
             Console.WriteLine("These stats will have an effect on what weapons and armour you can wear and weild - will you be strong or tough enough to use them?");
-            Console.WriteLine("In turn, these weapons and armour will increase or decrease your speed.\n");
+            Console.WriteLine("In turn, these weapons and armour will increase or decrease your speed which will affect how quickly and how often you can attack.\n");
             Console.WriteLine("All of these stats together will affect how you do in combat once you enter your chosen dungeon.");
 
             string readResponse;
