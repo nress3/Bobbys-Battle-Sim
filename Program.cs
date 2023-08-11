@@ -576,15 +576,44 @@ namespace textGameMaybe
                 Console.ReadLine();
             }
 
-            void Battle(string attacker, string defender, int attackerStrength, int defenderToughness, int defenderHealth)
+
+
+            /*
+             * enter room %
+             * spawn enemies %
+             * 
+             * Give player options for each turn:
+             * choose to attack
+             * choose to use a special ability & on who if applicable
+             * 
+             * for attack: 
+             * choose enemy
+             * fastest player or enemy goes first
+             * potential for multi attack based on speed + random roll
+             * damage enemy and take damage
+             * 
+             * loops back to select menu if player lives and still enemies
+             * 
+            */
+
+            void Battle()
             {
-                int attackerSwing = attackerStrength + random.Next(1, 7) - defenderToughness;
 
-                defenderHealth -= attackerSwing;
 
-                Console.WriteLine($"{attacker} did {attackerSwing} damage to {defender}. {defender} now has {defenderHealth}HP remaining.");
-                Console.ReadLine();
 
+
+
+
+
+
+
+                //int attackerSwing = attackerStrength + random.Next(1, 7) - defenderToughness;
+
+                //defenderHealth -= attackerSwing;
+
+                //Console.WriteLine($"{attacker} did {attackerSwing} damage to {defender}. {defender} now has {defenderHealth}HP remaining.");
+                //Console.ReadLine();
+                //eventually this will work
             }
 
             //player enters room, displayes enter room message, maaayyyyybe uses enemy appears method to "spawn" baddies
