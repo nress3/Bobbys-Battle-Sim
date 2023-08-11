@@ -526,9 +526,10 @@ namespace textGameMaybe
             DungeonSelect();
 
             EnterRoom();
-            //Battle(player.PlayerName, firstBandit.BanditName, player.Strength, firstBandit.Toughness, firstBandit.Health);
+
             EnterRoom();
-            BanditEnemy bandito = new BanditEnemy(random);
+
+
 
 
             
