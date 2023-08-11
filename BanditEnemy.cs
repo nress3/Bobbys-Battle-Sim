@@ -37,6 +37,7 @@ namespace textGameMaybe
 
 
 
+
         public BanditEnemy()
         {
             banditName = banditNames[banditRandom.Next(banditNames.Length)];
