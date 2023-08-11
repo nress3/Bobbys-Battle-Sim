@@ -520,6 +520,10 @@ namespace textGameMaybe
 
 
 
+
+
+            
+
             Console.WriteLine("Thank you for playing Bobby's battle sim! Have fun ya freak.");
             PlayerCharacter player = new PlayerCharacter();
 
@@ -546,7 +550,7 @@ namespace textGameMaybe
                 do
                 {
                     
-                    int dungeonSelection = player.GetNumberSelection();
+                    int dungeonSelection = GetNumberSelection();
                     selectionInRange = true;
 
                     switch (dungeonSelection) 
@@ -599,7 +603,17 @@ namespace textGameMaybe
             void Battle()
             {
 
+                do
+                {
+                    Console.WriteLine("What will you do?");
+                    Console.WriteLine("1. Attack an enemy.");
+                    Console.WriteLine("2. Use your special ability.");
 
+                    int battleSelection = GetNumberSelection();
+
+
+
+                } while (true);
 
 
 
@@ -681,6 +695,29 @@ namespace textGameMaybe
 
 
 
+        }
+
+        //helper method for numerical menu selection
+        public static int GetNumberSelection()
+        {
+            int response = 0;
+            string readResponse = "";
+            bool success = false;
+
+            do
+            {
+                Console.WriteLine("Type the number of your selection and press enter.");
+                readResponse = Console.ReadLine();
+
+                if (readResponse != "")
+                {
+                    success = int.TryParse(readResponse, out response);
+                }
+                else success = false;
+
+            } while (success == false);
+
+            return response;
         }
 
     }

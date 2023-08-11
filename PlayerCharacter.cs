@@ -192,7 +192,7 @@ namespace textGameMaybe
             bool selectionInRange = false;
             do
             {
-                int classSelect = GetNumberSelection();
+                int classSelect = Program.GetNumberSelection();
                 selectionInRange = true;
 
                 switch (classSelect)
@@ -249,28 +249,7 @@ namespace textGameMaybe
         }
 
 
-        //helper method for numerical menu selection
-        public int GetNumberSelection()
-        {
-            int response = 0;
-            string readResponse = "";
-            bool success = false;
 
-            do
-            {
-                Console.WriteLine("Type the number of your selection and press enter.");
-                readResponse = Console.ReadLine();
-
-                if (readResponse != "")
-                {
-                    success = int.TryParse(readResponse, out response);
-                }
-                else success = false;
-
-            } while (success == false);
-
-            return response;
-        }
 
 
 
