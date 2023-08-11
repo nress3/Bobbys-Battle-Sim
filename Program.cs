@@ -522,13 +522,12 @@ namespace textGameMaybe
             DungeonSelect();
 
             EnterRoom();
+            BanditEnemy firstBandit = new BanditEnemy();
+            Battle(player.PlayerName, firstBandit.BanditName, player.Strength, firstBandit.Toughness, firstBandit.Health);
+
             BanditEnemy bandito = new BanditEnemy();
             EnterRoom();
 
-
-
-
-            Battle(player.PlayerName, bandito.HeadBandit, player.Strength, 2, 10);
             
 
             void DungeonSelect()
@@ -607,7 +606,15 @@ namespace textGameMaybe
             
             }
 
+            void EnemyAppears()
+            {
+                int enemyCounter = 0;
 
+                for (int i = 0; i < random.Next(2, 5); i++)
+                {
+                    BanditEnemy bandit = new BanditEnemy();
+                }
+            }
 
 
 

@@ -28,6 +28,7 @@ namespace textGameMaybe
                 if (value < 0)
                 {
                     value = 0;
+
                 }
                 health = value;
             }

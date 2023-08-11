@@ -25,6 +25,10 @@ namespace textGameMaybe
                                             "Dwayne the Brute", "Reginald the Shark", "Holden the Devil", "Newton Smiley", 
                                             "Terris Bullseye", "Hyatt Witty", "Jagger Blowhard" };
         protected string banditName;
+        public string BanditName
+        {
+            get { return banditName; }
+        }
 
         protected string[] banditInsults = { "Have at you then!", "Who are you?", "You dare you desecrate this place!", "You won't get past me!", "You're as good as dead!",
                                             "I'll have your head!", "You'll never make it out of here alive.", "Your mother was a hamster and your father smelled of elderberries!",
