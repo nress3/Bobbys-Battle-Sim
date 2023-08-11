@@ -8,7 +8,7 @@ namespace textGameMaybe
 {
     internal class GoblinEnemy : Character
     {
-        Random goblinRandom = new Random();
+        
 
         private string[] goblinNameOptions = { "Ooga", "Booga", "Jurgun", "Huron", "Lemour", "Knackjer", "groghun",
                                                 "shream",  "hiccup", "Gricket", "havor", "Bargelow", "gregor", "Meshawk",
@@ -30,7 +30,7 @@ namespace textGameMaybe
                                             "flicks you off", "bares his teeth", "charges you", "calls you a bum", "punds his chest", "catcalls you", "scratches the wall with his sharp claws"};
 
 
-        public GoblinEnemy()
+        public GoblinEnemy(Random goblinRandom)
         {
             goblinWeapon = goblinWeaponChoices[goblinRandom.Next(goblinWeaponChoices.Length)];
             goblinName = goblinNameOptions[goblinRandom.Next(goblinNameOptions.Length)];

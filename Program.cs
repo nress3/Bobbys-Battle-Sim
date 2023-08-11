@@ -512,26 +512,30 @@ namespace textGameMaybe
             string[] treasureChoices = { "The Soul Scythe", "The Daggers of Wealth", "The Mace of Suffering" };
             string roomNumber = "";
             int roomNumberCounter = 0;
-            
 
-            
-            
+            BanditEnemy[] banditEnemies;
+            GoblinEnemy[] goblinEnemies;
+
+
+
+
+
             Console.WriteLine("Thank you for playing Bobby's battle sim! Have fun ya freak.");
             PlayerCharacter player = new PlayerCharacter();
 
             DungeonSelect();
 
             EnterRoom();
-            BanditEnemy firstBandit = new BanditEnemy();
-            BanditEnemy secondBandit = new BanditEnemy();
-            GoblinEnemy firstGoblin = new GoblinEnemy();
+            BanditEnemy firstBandit = new BanditEnemy(random);
+            BanditEnemy secondBandit = new BanditEnemy(random);
+            GoblinEnemy firstGoblin = new GoblinEnemy(random);
             Battle(player.PlayerName, firstBandit.BanditName, player.Strength, firstBandit.Toughness, firstBandit.Health);
             EnterRoom();
-            BanditEnemy bandito = new BanditEnemy();
+            BanditEnemy bandito = new BanditEnemy(random);
 
 
             
-
+            //player selects the dungeon
             void DungeonSelect()
             {
                 Console.WriteLine("You can choose one of three dungeons to enter and explore. Each one contains a different boss enemy and treasure. They are listed below.");
@@ -585,6 +589,7 @@ namespace textGameMaybe
 
             }
 
+            //player enters room, displayes enter room message, maaayyyyybe uses enemy appears method to "spawn" baddies
             void EnterRoom()
             {
                 roomNumberCounter++;
@@ -605,17 +610,45 @@ namespace textGameMaybe
                         break;
                 }
                 Console.WriteLine($"You enter the {roomNumber} room of the {dungeon}.");
+                EnemyAppears(roomNumberCounter);
             
             }
 
-            void EnemyAppears()
-            {
-                int enemyCounter = 0;
 
-                for (int i = 0; i < random.Next(2, 5); i++)
+
+            //"spawns" baddies
+            void EnemyAppears(int a_RoomNumber)
+            {
+
+                int maxEnemies = 0;
+
+                switch (a_RoomNumber)
                 {
-                    BanditEnemy bandit = new BanditEnemy();
+                    case 1:
+                        maxEnemies = 2;
+                        break;
+                    case 2:
+                        maxEnemies = 3;
+                        break;
+                    case 3:
+                    case 4:
+                        maxEnemies = 4;
+                        break;
+                    case 5:
+                        maxEnemies = 5;
+                        break;
+                    default:
+                        maxEnemies = 50;
+                        break;
                 }
+
+                goblinEnemies = new GoblinEnemy[random.Next(1, maxEnemies + 1)];
+
+                for (int i = 0; i < goblinEnemies.Length; i++)
+                {
+                    goblinEnemies[i] = new GoblinEnemy(random);
+                }
+
             }
 
 

@@ -49,6 +49,7 @@ namespace textGameMaybe
         }
 
 
+        //player selects weapon
         protected void WeaponSelection()
         {
             Console.WriteLine("Choose your weapon from the list below:");
@@ -150,6 +151,7 @@ namespace textGameMaybe
         }
 
 
+        //player enters name
         private void  EnterName()
         {
             string readResponse = "";
@@ -173,6 +175,8 @@ namespace textGameMaybe
             Console.ReadLine();
         }
 
+
+        //player selects class
         private void ClassSelect()
         {
 
@@ -215,6 +219,8 @@ namespace textGameMaybe
 
         }
 
+
+        //player rolls for stats
         private void StatsRoll()
         {
             Console.WriteLine("To Begin you will roll d10's for your base stats: strength, toughness, and speed.\n");
@@ -243,6 +249,7 @@ namespace textGameMaybe
         }
 
 
+        //helper method for numerical menu selection
         public int GetNumberSelection()
         {
             int response = 0;

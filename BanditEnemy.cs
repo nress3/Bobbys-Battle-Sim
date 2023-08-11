@@ -8,7 +8,6 @@ namespace textGameMaybe
 {
     internal class BanditEnemy : Character
     {
-        Random banditRandom = new Random();
         protected string headBanditName = "Bandito Musselini";
         public string HeadBandit
         {
@@ -32,22 +31,23 @@ namespace textGameMaybe
 
         private string[] banditInsults = { "Have at you then!", "Who are you?", "You dare you desecrate this place!", "You won't get past me!", "You're as good as dead!",
                                             "I'll have your head!", "You'll never make it out of here alive.", "Your mother was a hamster and your father smelled of elderberries!",
-                                            "I'll kill you!", "Get Out!", "Get fucked bahd!", "That's it, you're dead!", "I'll mount your skull on my mantle!"};
+                                            "I'll kill you!", "Get Out!", "Get fucked bud!", "That's it, you're dead!", "I'll mount your skull on my mantle!"};
 
 
 
 
 
-        public BanditEnemy()
+        public BanditEnemy(Random banditRandomizer)
         {
-            banditName = banditNames[banditRandom.Next(banditNames.Length)];
-            banditweapon = banditWeaponChoices[banditRandom.Next(banditWeaponChoices.Length)];
-            banditWeaponDamage = banditRandom.Next(0, 4);
-            health = banditRandom.Next(10, 16);
-            toughness = banditRandom.Next(0, 4);
-            strength = banditRandom.Next(0, 4);
 
-            Console.WriteLine($"There is a bandit in the room named {banditName}. He points at you and says {banditInsults[banditRandom.Next(banditInsults.Length)]}.");
+            banditName = banditNames[banditRandomizer.Next(banditNames.Length)];
+            banditweapon = banditWeaponChoices[banditRandomizer.Next(banditWeaponChoices.Length)];
+            banditWeaponDamage = banditRandomizer.Next(0, 4);
+            health = banditRandomizer.Next(10, 16);
+            toughness = banditRandomizer.Next(0, 4);
+            strength = banditRandomizer.Next(0, 4);
+
+            Console.WriteLine($"There is a bandit in the room named {banditName}. He points at you and says {banditInsults[banditRandomizer.Next(banditInsults.Length)]}.");
         }
 
 
