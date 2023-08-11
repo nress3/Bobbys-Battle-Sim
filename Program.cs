@@ -611,6 +611,17 @@ namespace textGameMaybe
 
                     int battleSelection = GetNumberSelection();
 
+                    switch (battleSelection)
+                    {
+                        case 1:
+                            //sadfasdf
+                            break;
+                        case 2:
+                            //asdfasdf
+                            break;
+                    
+                    }
+
 
 
                 } while (true);
