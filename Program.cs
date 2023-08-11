@@ -523,10 +523,12 @@ namespace textGameMaybe
 
             EnterRoom();
             BanditEnemy firstBandit = new BanditEnemy();
+            BanditEnemy secondBandit = new BanditEnemy();
+            GoblinEnemy firstGoblin = new GoblinEnemy();
             Battle(player.PlayerName, firstBandit.BanditName, player.Strength, firstBandit.Toughness, firstBandit.Health);
-
-            BanditEnemy bandito = new BanditEnemy();
             EnterRoom();
+            BanditEnemy bandito = new BanditEnemy();
+
 
             
 

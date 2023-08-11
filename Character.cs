@@ -16,6 +16,7 @@ namespace textGameMaybe
         protected int speed;
         protected int armour;
         protected int weaponDamage;
+        protected bool dead = false;
 
 
 
