@@ -526,10 +526,7 @@ namespace textGameMaybe
             DungeonSelect();
 
             EnterRoom();
-            BanditEnemy firstBandit = new BanditEnemy(random);
-            BanditEnemy secondBandit = new BanditEnemy(random);
-            GoblinEnemy firstGoblin = new GoblinEnemy(random);
-            Battle(player.PlayerName, firstBandit.BanditName, player.Strength, firstBandit.Toughness, firstBandit.Health);
+            //Battle(player.PlayerName, firstBandit.BanditName, player.Strength, firstBandit.Toughness, firstBandit.Health);
             EnterRoom();
             BanditEnemy bandito = new BanditEnemy(random);
 
@@ -611,7 +608,7 @@ namespace textGameMaybe
                 }
                 Console.WriteLine($"You enter the {roomNumber} room of the {dungeon}.");
                 EnemyAppears(roomNumberCounter);
-            
+                Console.ReadLine();
             }
 
 
