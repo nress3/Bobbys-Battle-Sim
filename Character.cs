@@ -16,7 +16,16 @@ namespace textGameMaybe
         protected int speed;
         protected int armour;
         protected int weaponDamage;
+        public int WeaponDamage
+        {
+            get { return weaponDamage; }
+        }
         protected bool dead = false;
+        public bool Dead
+        {
+            get { return dead; }
+            set { dead = value; }
+        }
 
 
 

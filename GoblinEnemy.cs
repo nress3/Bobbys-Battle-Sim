@@ -37,6 +37,7 @@ namespace textGameMaybe
             health = goblinRandom.Next(9, 13);
             toughness = goblinRandom.Next(1, 4);
             strength = goblinRandom.Next(1, 3);
+            speed = goblinRandom.Next(1, 4);
 
             Console.WriteLine($"A goblin named {GoblinName} is in the room. He {goblinActions[goblinRandom.Next(goblinActions.Length)]}.");
         }
