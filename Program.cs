@@ -605,6 +605,7 @@ namespace textGameMaybe
              * loops back to select menu if player lives and still enemies
              * 
             */
+            //this shit doesn't work... might have to start over
 
             void Battle()
             {
