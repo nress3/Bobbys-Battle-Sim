@@ -536,6 +536,8 @@ namespace textGameMaybe
 
             EnterRoom();
 
+            Battle();
+
 
 
 
@@ -618,8 +620,7 @@ namespace textGameMaybe
                     switch (battleSelection)
                     {
                         case 1:
-                            Console.WriteLine("This is where the battle goes.");
-                            Console.ReadLine();
+                            
                             for (int i = 0; i < goblinEnemies.Length; i++)
                             {
                                 Console.WriteLine($"{goblinEnemies[i].GoblinName} has {goblinEnemies[i].Speed} speed.");
@@ -632,21 +633,45 @@ namespace textGameMaybe
                             {
                                 Console.WriteLine($"{i + 1}: {goblinEnemies[i].GoblinName}");
                             }
-
                             int attackChoice = GetNumberSelection();
 
                             for (int i = 0; i < goblinEnemies.Length; i++)
                             {
                                 bool playerAttacked = false;
 
-                                if (player.Speed > goblinEnemies[i].Speed)
+                                if (goblinEnemies[i].Speed > player.Speed)
+                                {
+                                    //goblin attaacks
+                                    int goblinSwing = (goblinEnemies[i].Strength + random.Next(4)) - player.Toughness;
+                                    if (goblinSwing <= 0)
+                                    { goblinSwing = 0; }
+                                    player.Health -= goblinSwing;
+
+                                    Console.WriteLine($"{goblinEnemies[i].GoblinName} did {goblinSwing} damage to {player.PlayerName} with their {goblinEnemies[i].GoblinWeapon}.");
+                                    Console.WriteLine($"{player.PlayerName} now has {player.Health} HP remaining.");
+
+                                    if (player.Health == 0)
+                                    {
+                                        player.Dead = true;
+                                        if (player.Dead == true)
+                                        {
+                                            Console.WriteLine($"{player.PlayerName} died!.");
+                                            continue;
+                                        }
+                                    }
+
+                                }
+
+                                else if ((player.Speed >= goblinEnemies[i].Speed) && (playerAttacked == false))
                                 {
                                     if (goblinEnemies[i] == goblinEnemies[attackChoice - 1])
                                     {
-                                        int playerSwing = ((player.Strength + random.Next(1, 7)) + player.WeaponDamage) - goblinEnemies[i].Toughness;
-                                        goblinEnemies[i].Health -= playerSwing;
-                                        Console.WriteLine($"{player.PlayerName} did {playerSwing} damage to {goblinEnemies[i].GoblinName} with their {player.PlayerWeapon}.");
+                                        //player attacks
+                                        int swing = PlayerSwing(player.Strength, player.WeaponDamage, goblinEnemies[i].Toughness, goblinEnemies[i].Health);
+
+                                        Console.WriteLine($"{player.PlayerName} did {swing} damage to {goblinEnemies[i].GoblinName} with their {player.PlayerWeapon}.");
                                         Console.WriteLine($"{goblinEnemies[i].GoblinName} now has {goblinEnemies[i].Health} HP remaining.");
+
                                         if (goblinEnemies[i].Health == 0)
                                         {
                                             goblinEnemies[i].Dead = true;
@@ -654,12 +679,12 @@ namespace textGameMaybe
                                             Console.WriteLine($"{player.PlayerName} killed {goblinEnemies[i].GoblinName}.");
                                         }
                                         Console.ReadLine();
+
                                         if (goblinEnemies[i].Dead != true)
                                         {
-                                            int goblinSwing = (goblinEnemies[i].Strength + random.Next(4)) - player.Toughness;
-                                            if (goblinSwing <= 0)
-                                            { goblinSwing = 0; }
-                                            player.Health -= goblinSwing;
+                                            //goblin hits back
+                                            int goblinSwing = GoblinSwing(goblinEnemies[i].Strength, player.Toughness, player.Health);
+
                                             Console.WriteLine($"{goblinEnemies[i].GoblinName} did {goblinSwing} damage to {player.PlayerName} with their {goblinEnemies[i].GoblinWeapon}.");
                                             Console.WriteLine($"{player.PlayerName} now has {player.Health} HP remaining.");
                                             if (player.Health == 0)
@@ -675,28 +700,33 @@ namespace textGameMaybe
                                     }
 
                                 }
-                                else if (player.Speed > goblinEnemies[i].Speed)
-                                {
-                                    if (goblinEnemies[i] == goblinEnemies[attackChoice - 1] && playerAttacked == false)
-                                    {
-                                        //player attacks
-                                        playerAttacked = true;
-                                    }
 
+                                else if ((player.Speed > goblinEnemies[i].Speed) && (playerAttacked == true))
+                                {
+                                    int goblinSwing = GoblinSwing(goblinEnemies[i].Strength, player.Toughness, player.Health);
+
+                                    Console.WriteLine($"{goblinEnemies[i].GoblinName} did {goblinSwing} damage to {player.PlayerName} with their {goblinEnemies[i].GoblinWeapon}.");
+                                    Console.WriteLine($"{player.PlayerName} now has {player.Health} HP remaining.");
+                                    if (player.Health == 0)
+                                    {
+                                        player.Dead = true;
+                                        if (player.Dead == true)
+                                        {
+                                            Console.WriteLine($"{player.PlayerName} died!.");
+                                        }
+                                    }
                                 }
+
                                 else
                                 {
-                                    //goblinattacks
-                                    if (goblinEnemies[i] == goblinEnemies[attackChoice])
-                                    {
-                                        //playerattacks
-                                        playerAttacked = true;
-                                    }
+                                    //i don't know what's going on here. this is a backup failsafe
+                                    Console.WriteLine("You hit the default somehow. You should figure that out.");
+
                                 }
 
                             }
-                            //sadfasdf
                             break;
+
                         case 2:
 
                             abilityCounter--;
@@ -742,9 +772,7 @@ namespace textGameMaybe
 
 
 
-                //int attackerSwing = attackerStrength + random.Next(1, 7) - defenderToughness;
 
-                //defenderHealth -= attackerSwing;
 
                 //Console.WriteLine($"{attacker} did {attackerSwing} damage to {defender}. {defender} now has {defenderHealth}HP remaining.");
                 //Console.ReadLine();
@@ -813,6 +841,23 @@ namespace textGameMaybe
 
             }
 
+            int PlayerSwing(int attackerStrength, int weaponBonus, int defenderToughness, int defenderHealth)
+            {
+                int attackerSwing = ((attackerStrength + random.Next(1, 7)) + weaponBonus) - defenderToughness;
+
+                defenderHealth -= attackerSwing;
+                return attackerSwing;
+            }
+
+            int GoblinSwing(int goblinStrength, int defenderToughness, int defenderHealth)
+            {
+                int goblinSwing = (goblinStrength + random.Next(4)) - defenderToughness;
+                if (goblinSwing <= 0)
+                { goblinSwing = 0; }
+                defenderHealth -= goblinSwing;
+                return goblinSwing;
+
+            }
 
 
 
