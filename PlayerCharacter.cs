@@ -26,7 +26,7 @@ namespace textGameMaybe
         }
         protected string playerClass = "";
         private string[] playerClasses = { "priest", "marauder", "bard" };
-        private string[] classAbilities = { "heal one d20 health", "triple attack", "enemy can't attack for two turns" };
+        private string[] classAbilities = { "Revitalize: heal one d20 health", "Fury: triple attack", "Entrance: enemy can't attack for two turns" };
         private string[] weaponChoices = { "mace", "rapier", "sword & shield", "club", "dual knives" };
         private string[] weaponRequirements = { "\t\tmin strength: 6\t\tspeed: -5\tdamage: +7", 
                                                 "\t\tmin strength: 3\t\tspeed: +5\tdamage: +3", 
@@ -35,6 +35,11 @@ namespace textGameMaybe
                                                 "\tmin strength: 1\t\tspeed: +7\tdamage: +2"};
         private int[] weaponDamageModifiers = { 7, 3, 4 , 5, 2};
         private int[] speedModifiers = { -5, 5, -1, -3, 7 };
+        protected string playerAbility;
+        public string PlayerAbility
+        { 
+            get { return playerAbility; } 
+        }
         
 
         public PlayerCharacter()
@@ -199,12 +204,15 @@ namespace textGameMaybe
                 {
                     case 1:
                         playerClass = playerClasses[classSelect - 1];
+                        playerAbility = playerClasses[classSelect - 1].Substring(0,10);
                         break;
                     case 2:
                         playerClass = playerClasses[classSelect - 1];
+                        playerAbility = playerClasses[classSelect - 1].Substring(0,4);
                         break;
                     case 3:
                         playerClass = playerClasses[classSelect - 1];
+                        playerAbility = playerClasses[classSelect - 1].Substring(0,8);
                         break;
                     default:
                         selectionInRange = false;

@@ -512,6 +512,7 @@ namespace textGameMaybe
             string[] treasureChoices = { "The Soul Scythe", "The Daggers of Wealth", "The Mace of Suffering" };
             string roomNumber = "";
             int roomNumberCounter = 0;
+            int abilityCounter = 3;
 
             BanditEnemy[] banditEnemies;
             GoblinEnemy[] goblinEnemies;
@@ -617,7 +618,34 @@ namespace textGameMaybe
                             //sadfasdf
                             break;
                         case 2:
-                            //asdfasdf
+
+                            abilityCounter--;
+                            if (abilityCounter < 0)
+                            { Console.WriteLine("You have already used your special ability 3 times. You are out of ability uses."); }
+                            else 
+                            {
+                                Console.WriteLine($"You chose to use your ability: {player.PlayerAbility}.");
+
+                                switch (player.PlayerAbility)
+                                {
+                                    case "Revitalize":
+                                        int heal = random.Next(5, 20);
+                                        player.Health += heal;
+                                        Console.WriteLine($"You healed {heal} health. You now have {player.Health} HP.");
+                                        Console.ReadLine();
+                                        break;
+
+                                    case "Fury":
+                                        //fury ability goes here.
+                                        //need to figure out attack code, and 3x it here
+                                        break;
+
+                                    case "Entrance":
+                                        //entrance ability goes here. i have no clue how to do this.
+                                        break;
+
+                                }
+                            }
                             break;
                     
                     }
