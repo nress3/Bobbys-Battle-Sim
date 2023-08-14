@@ -644,8 +644,9 @@ namespace textGameMaybe
                             do
                             {
                                 attackChoice = GetNumberSelection();
-                                if (attackChoice > 0 && attackChoice <= goblinEnemies.Length)
+                                if (attackChoice > 0 && attackChoice <= goblinEnemies.Length && goblinEnemies[attackChoice - 1].Dead == false)
                                 { selectionInRange = true; }
+
 
                             } while (selectionInRange == false);
 
@@ -664,6 +665,7 @@ namespace textGameMaybe
 
                                         Console.WriteLine($"{player.PlayerName} did {playerSwing} damage to {goblinEnemies[i].GoblinName}.");
                                         Console.WriteLine($"{goblinEnemies[i].GoblinName} has {goblinEnemies[i].Health} HP remaining.");
+                                        Console.WriteLine();
 
                                         if (goblinEnemies[i].Health == 0)
                                         {
@@ -697,6 +699,7 @@ namespace textGameMaybe
 
                                         Console.WriteLine($"{player.PlayerName} did {playerSwing} damage to {goblinEnemies[i].GoblinName}.");
                                         Console.WriteLine($"{goblinEnemies[i].GoblinName} has {goblinEnemies[i].Health} HP remaining.");
+                                        Console.WriteLine();
 
                                         if (goblinEnemies[i].Health == 0)
                                         {
@@ -767,7 +770,7 @@ namespace textGameMaybe
                                         Console.WriteLine($"You attack your enemies in a flurry of blows with your {player.PlayerWeapon}.");
                                         int attackCounter = 3;
 
-                                        while (attackCounter > 0)
+                                        while (attackCounter > 0 && numberOfEnemies > 0)
                                         {
                                             Console.WriteLine("Which enemy would you like to attack?");
                                             for (int i = 0; i < goblinEnemies.Length; i++)
@@ -786,15 +789,15 @@ namespace textGameMaybe
                                             do
                                             {
                                                 attackChoice = GetNumberSelection();
-                                                if (attackChoice > 0 && attackChoice <= goblinEnemies.Length)
+                                                if (attackChoice > 0 && attackChoice <= goblinEnemies.Length && goblinEnemies[attackChoice - 1].Dead == false)
                                                 { selectionInRange = true; }
 
                                             } while (selectionInRange == false);
 
 
-                                            for (int i = 0; i <= goblinEnemies.Length; i++)
+                                            for (int i = 0; i < goblinEnemies.Length; i++)
                                             {
-                                                if (goblinEnemies[i] == goblinEnemies[attackChoice - 1])
+                                                if (goblinEnemies[i] == goblinEnemies[(attackChoice - 1)])
                                                 {
                                                     int playerSwing = (player.Strength + random.Next(1, 7) + player.WeaponDamage) - goblinEnemies[i].Toughness;
                                                     goblinEnemies[i].Health -= playerSwing;
@@ -813,8 +816,11 @@ namespace textGameMaybe
                                                 }
 
                                             }
-
                                             attackCounter--;
+                                            if (numberOfEnemies == 0)
+                                            { break; }
+                                            Console.WriteLine($"You have {attackCounter} more attacks.");
+                                            Console.WriteLine();
                                         }
                                         //fury ability goes here.
                                         //need to figure out attack code, and 3x it here
@@ -824,6 +830,39 @@ namespace textGameMaybe
                                         //entrance ability goes here. i have no clue how to do this.
                                         break;
 
+                                }
+                            }
+
+                            //ALL goblins hit back
+                            if (numberOfEnemies > 0)
+                            {
+                                Console.WriteLine("The goblins fight back!");
+
+                                for (int i = 0; i < goblinEnemies.Length; i++)
+                                {
+                                    if (goblinEnemies[i].Dead != true)
+                                    {
+                                        int goblinSwing = (goblinEnemies[i].Strength + random.Next(1, 6)) - player.Toughness;
+                                        player.Health -= goblinSwing;
+                                        if (goblinSwing <= 0)
+                                        {
+                                            goblinSwing = 0;
+                                            Console.WriteLine($"{goblinEnemies[i].GoblinName}'s attack missed {player.PlayerName}!");
+                                            Console.ReadLine();
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine($"{goblinEnemies[i].GoblinName} attacked {player.PlayerName} for {goblinSwing} damage!");
+                                            Console.WriteLine($"{player.PlayerName} now has {player.Health} HP remaining.");
+
+                                            if (player.Health <= 0)
+                                            {
+                                                player.Dead = true;
+                                                Console.WriteLine($"{goblinEnemies[i].GoblinName} just killed {player.PlayerName}! You Lose!");
+                                            }
+                                            Console.ReadLine();
+                                        }
+                                    }
                                 }
                             }
                             break;

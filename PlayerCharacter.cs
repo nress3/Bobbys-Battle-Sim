@@ -208,11 +208,11 @@ namespace textGameMaybe
                         break;
                     case 2:
                         playerClass = playerClasses[classSelect - 1];
-                        playerAbility = classAbilities[classSelect - 1].Substring(1,4);
+                        playerAbility = classAbilities[classSelect - 1].Substring(0,4);
                         break;
                     case 3:
                         playerClass = playerClasses[classSelect - 1];
-                        playerAbility = classAbilities[classSelect - 1].Substring(1,8);
+                        playerAbility = classAbilities[classSelect - 1].Substring(0,8);
                         break;
                     default:
                         selectionInRange = false;
