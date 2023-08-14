@@ -649,7 +649,7 @@ namespace textGameMaybe
 
                             } while (selectionInRange == false);
 
-                            //finds selected goblin and player swings - number of attacks based on speed.
+                            //finds selected goblin and player swings - the number of attacks is based on speed.
                             //this is a backup plan. i'd prefer if there was a turn order based on speed as well as # of attacks
                             for (int i = 0; i < goblinEnemies.Length; i++)
                             {
@@ -763,7 +763,59 @@ namespace textGameMaybe
                                         break;
 
                                     case "Fury":
+
+                                        Console.WriteLine($"You attack your enemies in a flurry of blows with your {player.PlayerWeapon}.");
                                         int attackCounter = 3;
+
+                                        while (attackCounter > 0)
+                                        {
+                                            Console.WriteLine("Which enemy would you like to attack?");
+                                            for (int i = 0; i < goblinEnemies.Length; i++)
+                                            {
+                                                if (goblinEnemies[i].Dead != true)
+                                                {
+                                                    Console.WriteLine($"{i + 1}: {goblinEnemies[i].GoblinName}");
+                                                }
+                                                else
+                                                {
+                                                    Console.WriteLine($"{i + 1}: {goblinEnemies[i].GoblinName} is dead. He won't get more dead.");
+                                                }
+                                            }
+                                            attackChoice = 0;
+                                            selectionInRange = false;
+                                            do
+                                            {
+                                                attackChoice = GetNumberSelection();
+                                                if (attackChoice > 0 && attackChoice <= goblinEnemies.Length)
+                                                { selectionInRange = true; }
+
+                                            } while (selectionInRange == false);
+
+
+                                            for (int i = 0; i <= goblinEnemies.Length; i++)
+                                            {
+                                                if (goblinEnemies[i] == goblinEnemies[attackChoice - 1])
+                                                {
+                                                    int playerSwing = (player.Strength + random.Next(1, 7) + player.WeaponDamage) - goblinEnemies[i].Toughness;
+                                                    goblinEnemies[i].Health -= playerSwing;
+
+                                                    Console.WriteLine($"{player.PlayerName} did {playerSwing} damage to {goblinEnemies[i].GoblinName}.");
+                                                    Console.WriteLine($"{goblinEnemies[i].GoblinName} has {goblinEnemies[i].Health} HP remaining.");
+
+                                                    if (goblinEnemies[i].Health == 0)
+                                                    {
+                                                        numberOfEnemies--;
+                                                        goblinEnemies[i].Dead = true;
+                                                        Console.WriteLine($"{player.PlayerName} killed {goblinEnemies[i].GoblinName}!");
+                                                        Console.ReadLine();
+                                                    }
+                                                    
+                                                }
+
+                                            }
+
+                                            attackCounter--;
+                                        }
                                         //fury ability goes here.
                                         //need to figure out attack code, and 3x it here
                                         break;
