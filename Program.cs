@@ -539,6 +539,10 @@ namespace textGameMaybe
 
             Battle();
 
+            EnterRoom();
+
+            Battle();
+
 
 
 
@@ -618,25 +622,258 @@ namespace textGameMaybe
 
                     int battleSelection = GetNumberSelection();
                     
-
                     switch (battleSelection)
                     {
                         case 1:
-                            
-                            for (int i = 0; i < goblinEnemies.Length; i++)
-                            {
-                                Console.WriteLine($"{goblinEnemies[i].GoblinName} has {goblinEnemies[i].Speed} speed.");
-                            }
-                            Console.WriteLine($"{player.PlayerName} has {player.Speed} speed.");
-                            Console.ReadLine();
 
                             Console.WriteLine("Which enemy would you like to attack?");
                             for (int i = 0; i < goblinEnemies.Length; i++)
                             {
-                                Console.WriteLine($"{i + 1}: {goblinEnemies[i].GoblinName}");
+                                if (goblinEnemies[i].Dead != true)
+                                {
+                                    Console.WriteLine($"{i + 1}: {goblinEnemies[i].GoblinName}");
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"{i + 1}: {goblinEnemies[i].GoblinName} is dead. He won't get more dead.");
+                                }
                             }
-                            int attackChoice = GetNumberSelection();
 
+                            int attackChoice = 0;
+                            bool selectionInRange = false;
+                            do
+                            {
+                                attackChoice = GetNumberSelection();
+                                if (attackChoice > 0 && attackChoice <= goblinEnemies.Length)
+                                { selectionInRange = true; }
+
+                            } while (selectionInRange == false);
+
+                            //finds selected goblin and player swings - number of attacks based on speed.
+                            //this is a backup plan. i'd prefer if there was a turn order based on speed as well as # of attacks
+                            for (int i = 0; i < goblinEnemies.Length; i++)
+                            {
+                                if (goblinEnemies[i] == goblinEnemies[attackChoice - 1])
+                                {
+                                    if (player.Speed > (3 * goblinEnemies[i].Speed)) //player is fast enough to hit twice
+                                    {
+                                        Console.WriteLine($"{player.PlayerName} is fast enough to attack {goblinEnemies[i].GoblinName} twice!");
+
+                                        int playerSwing = (player.Strength + random.Next(1, 7) + player.WeaponDamage) - goblinEnemies[i].Toughness;
+                                        goblinEnemies[i].Health -= playerSwing;
+
+                                        Console.WriteLine($"{player.PlayerName} did {playerSwing} damage to {goblinEnemies[i].GoblinName}.");
+                                        Console.WriteLine($"{goblinEnemies[i].GoblinName} has {goblinEnemies[i].Health} HP remaining.");
+
+                                        if (goblinEnemies[i].Health == 0)
+                                        {
+                                            numberOfEnemies--;
+                                            goblinEnemies[i].Dead = true;
+                                            Console.WriteLine($"{player.PlayerName} killed {goblinEnemies[i].GoblinName}!");
+                                            Console.ReadLine();
+                                        }
+
+                                        if (goblinEnemies[i].Dead != true)
+                                        {
+                                            playerSwing = (player.Strength + random.Next(1, 7) + player.WeaponDamage) - goblinEnemies[i].Toughness;
+                                            goblinEnemies[i].Health -= playerSwing;
+
+                                            Console.WriteLine($"{player.PlayerName} did {playerSwing} damage to {goblinEnemies[i].GoblinName}.");
+                                            Console.WriteLine($"{goblinEnemies[i].GoblinName} has {goblinEnemies[i].Health} HP remaining.");
+
+                                            if (goblinEnemies[i].Health == 0)
+                                            {
+                                                numberOfEnemies--;
+                                                goblinEnemies[i].Dead = true;
+                                                Console.WriteLine($"{player.PlayerName} killed {goblinEnemies[i].GoblinName}!");
+                                                Console.ReadLine();
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        int playerSwing = (player.Strength + random.Next(1, 7) + player.WeaponDamage) - goblinEnemies[i].Toughness;
+                                        goblinEnemies[i].Health -= playerSwing;
+
+                                        Console.WriteLine($"{player.PlayerName} did {playerSwing} damage to {goblinEnemies[i].GoblinName}.");
+                                        Console.WriteLine($"{goblinEnemies[i].GoblinName} has {goblinEnemies[i].Health} HP remaining.");
+
+                                        if (goblinEnemies[i].Health == 0)
+                                        {
+                                            numberOfEnemies--;
+                                            goblinEnemies[i].Dead = true;
+                                            Console.WriteLine($"{player.PlayerName} killed {goblinEnemies[i].GoblinName}!");
+                                            Console.ReadLine();
+                                        }
+                                    }
+                                }
+                            
+                            }
+
+                            //ALL goblins hit back
+                            if (numberOfEnemies > 0)
+                            {
+                                Console.WriteLine("The goblins fight back!");
+
+                                for (int i = 0; i < goblinEnemies.Length; i++)
+                                {
+                                    if (goblinEnemies[i].Dead != true)
+                                    {
+                                        int goblinSwing = (goblinEnemies[i].Strength + random.Next(1, 6)) - player.Toughness;
+                                        player.Health -= goblinSwing;
+                                        if (goblinSwing <= 0)
+                                        {
+                                            goblinSwing = 0;
+                                            Console.WriteLine($"{goblinEnemies[i].GoblinName}'s attack missed {player.PlayerName}!");
+                                            Console.ReadLine();
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine($"{goblinEnemies[i].GoblinName} attacked {player.PlayerName} for {goblinSwing} damage!");
+                                            Console.WriteLine($"{player.PlayerName} now has {player.Health} HP remaining.");
+
+                                            if (player.Health <= 0)
+                                            {
+                                                player.Dead = true;
+                                                Console.WriteLine($"{goblinEnemies[i].GoblinName} just killed {player.PlayerName}! You Lose!");
+                                            }
+                                            Console.ReadLine();
+                                        }
+                                    }
+                                }
+                            }
+                            break;
+
+                        case 2:
+
+                            abilityCounter--;
+                            if (abilityCounter < 0)
+                            { Console.WriteLine("You have already used your special ability 3 times. You are out of ability uses."); }
+                            else 
+                            {
+                                Console.WriteLine($"You chose to use your ability: {player.PlayerAbility}.");
+
+                                switch (player.PlayerAbility)
+                                {
+                                    case "Revitalize":
+                                        int heal = random.Next(5, 20);
+                                        player.Health += heal;
+                                        Console.WriteLine($"You healed {heal} health. You now have {player.Health} HP.");
+                                        Console.ReadLine();
+                                        break;
+
+                                    case "Fury":
+                                        int attackCounter = 3;
+                                        //fury ability goes here.
+                                        //need to figure out attack code, and 3x it here
+                                        break;
+
+                                    case "Entrance":
+                                        //entrance ability goes here. i have no clue how to do this.
+                                        break;
+
+                                }
+                            }
+                            break;
+                    }
+                } while ((player.Dead == false) && (numberOfEnemies != 0));
+            }
+
+            //player enters room, displayes enter room message, maaayyyyybe uses enemy appears method to "spawn" baddies
+            void EnterRoom()
+            {
+                roomNumberCounter++;
+                switch (roomNumberCounter)
+                {
+                    case 1:
+                        roomNumber = "first";
+                        break;
+
+                    case 2:
+                    case 3:
+                    case 4:
+                        roomNumber = "next";
+                        break;
+
+                    case 5:
+                        roomNumber = "final";
+                        break;
+                }
+                Console.WriteLine($"You enter the {roomNumber} room of the {dungeon}.");
+                EnemyAppears(roomNumberCounter);
+                Console.ReadLine();
+            }
+
+
+            //"spawns" baddies
+            void EnemyAppears(int a_RoomNumber)
+            {
+
+                int maxEnemies = 0;
+
+                switch (a_RoomNumber)
+                {
+                    case 1:
+                        maxEnemies = 2;
+                        break;
+                    case 2:
+                        maxEnemies = 3;
+                        break;
+                    case 3:
+                    case 4:
+                        maxEnemies = 4;
+                        break;
+                    case 5:
+                        maxEnemies = 5;
+                        break;
+                    default:
+                        maxEnemies = 50;
+                        break;
+                }
+
+                goblinEnemies = new GoblinEnemy[random.Next(1, maxEnemies + 1)];
+
+                for (int i = 0; i < goblinEnemies.Length; i++)
+                {
+                    goblinEnemies[i] = new GoblinEnemy(random);
+                }
+
+            }
+
+            int PlayerSwing(int attackerStrength, int weaponBonus, int defenderToughness, int defenderHealth)
+            {
+                int attackerSwing = ((attackerStrength + random.Next(1, 7)) + weaponBonus) - defenderToughness;
+
+                defenderHealth -= attackerSwing;
+                return attackerSwing;
+            }
+
+            int GoblinSwing(int goblinStrength, int defenderToughness, int defenderHealth)
+            {
+                int goblinSwing = (goblinStrength + random.Next(4)) - defenderToughness;
+                if (goblinSwing <= 0)
+                { goblinSwing = 0; }
+                defenderHealth -= goblinSwing;
+                return goblinSwing;
+            }
+
+            /*
+              
+            void Battleeeeeeeee()
+            {
+                int numberOfEnemies = goblinEnemies.Length;
+
+                do
+                {
+                    Console.WriteLine("What will you do?");
+                    Console.WriteLine("1. Attack an enemy.");
+                    Console.WriteLine("2. Use your special ability.");
+
+                    int battleSelection = GetNumberSelection();
+
+                    switch (battleSelection)
+                    {
+                        case 1:
                             for (int i = 0; i < goblinEnemies.Length; i++)
                             {
                                 bool playerAttacked = false;
@@ -646,8 +883,8 @@ namespace textGameMaybe
                                     //goblin attacks
 
 
-                                    int goblinSwing = GoblinSwing(goblinEnemies[i].Strength, player.Toughness, player.Health); 
-                                    
+                                    int goblinSwing = GoblinSwing(goblinEnemies[i].Strength, player.Toughness, player.Health);
+
                                     Console.WriteLine($"{goblinEnemies[i].GoblinName} did {goblinSwing} damage to {player.PlayerName} with their {goblinEnemies[i].GoblinWeapon}.");
                                     Console.WriteLine($"{player.PlayerName} now has {player.Health} HP remaining.");
 
@@ -740,138 +977,16 @@ namespace textGameMaybe
 
                             }
                             break;
-
-                        case 2:
-
-                            abilityCounter--;
-                            if (abilityCounter < 0)
-                            { Console.WriteLine("You have already used your special ability 3 times. You are out of ability uses."); }
-                            else 
-                            {
-                                Console.WriteLine($"You chose to use your ability: {player.PlayerAbility}.");
-
-                                switch (player.PlayerAbility)
-                                {
-                                    case "Revitalize":
-                                        int heal = random.Next(5, 20);
-                                        player.Health += heal;
-                                        Console.WriteLine($"You healed {heal} health. You now have {player.Health} HP.");
-                                        Console.ReadLine();
-                                        break;
-
-                                    case "Fury":
-                                        //fury ability goes here.
-                                        //need to figure out attack code, and 3x it here
-                                        break;
-
-                                    case "Entrance":
-                                        //entrance ability goes here. i have no clue how to do this.
-                                        break;
-
-                                }
-                            }
-                            break;
-                    
                     }
 
 
 
-                } while ((player.Dead == false) && (numberOfEnemies != 0));
+                } while (true);
+            
 
 
 
-
-
-
-
-
-
-
-
-                //Console.WriteLine($"{attacker} did {attackerSwing} damage to {defender}. {defender} now has {defenderHealth}HP remaining.");
-                //Console.ReadLine();
-                //eventually this will work
-            }
-
-            //player enters room, displayes enter room message, maaayyyyybe uses enemy appears method to "spawn" baddies
-            void EnterRoom()
-            {
-                roomNumberCounter++;
-                switch (roomNumberCounter)
-                {
-                    case 1:
-                        roomNumber = "first";
-                        break;
-
-                    case 2:
-                    case 3:
-                    case 4:
-                        roomNumber = "next";
-                        break;
-
-                    case 5:
-                        roomNumber = "final";
-                        break;
-                }
-                Console.WriteLine($"You enter the {roomNumber} room of the {dungeon}.");
-                EnemyAppears(roomNumberCounter);
-                Console.ReadLine();
-            }
-
-
-
-            //"spawns" baddies
-            void EnemyAppears(int a_RoomNumber)
-            {
-
-                int maxEnemies = 0;
-
-                switch (a_RoomNumber)
-                {
-                    case 1:
-                        maxEnemies = 2;
-                        break;
-                    case 2:
-                        maxEnemies = 3;
-                        break;
-                    case 3:
-                    case 4:
-                        maxEnemies = 4;
-                        break;
-                    case 5:
-                        maxEnemies = 5;
-                        break;
-                    default:
-                        maxEnemies = 50;
-                        break;
-                }
-
-                goblinEnemies = new GoblinEnemy[random.Next(1, maxEnemies + 1)];
-
-                for (int i = 0; i < goblinEnemies.Length; i++)
-                {
-                    goblinEnemies[i] = new GoblinEnemy(random);
-                }
-
-            }
-
-            int PlayerSwing(int attackerStrength, int weaponBonus, int defenderToughness, int defenderHealth)
-            {
-                int attackerSwing = ((attackerStrength + random.Next(1, 7)) + weaponBonus) - defenderToughness;
-
-                defenderHealth -= attackerSwing;
-                return attackerSwing;
-            }
-
-            int GoblinSwing(int goblinStrength, int defenderToughness, int defenderHealth)
-            {
-                int goblinSwing = (goblinStrength + random.Next(4)) - defenderToughness;
-                if (goblinSwing <= 0)
-                { goblinSwing = 0; }
-                defenderHealth -= goblinSwing;
-                return goblinSwing;
-
-            }
+            } */
 
 
 
