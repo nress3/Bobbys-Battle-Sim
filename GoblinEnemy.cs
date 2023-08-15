@@ -34,7 +34,7 @@ namespace textGameMaybe
         {
             goblinWeapon = goblinWeaponChoices[goblinRandom.Next(goblinWeaponChoices.Length)];
             goblinName = goblinNameOptions[goblinRandom.Next(goblinNameOptions.Length)];
-            health = goblinRandom.Next(9, 13);
+            health = goblinRandom.Next(10, 20);
             toughness = goblinRandom.Next(1, 7);
             strength = goblinRandom.Next(1, 7);
             speed = goblinRandom.Next(1, 7);

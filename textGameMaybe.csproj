@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BanditEnemy.cs" />
+    <Compile Include="BossEnemy.cs" />
     <Compile Include="Character.cs" />
     <Compile Include="GoblinEnemy.cs" />
     <Compile Include="PlayerCharacter.cs" />

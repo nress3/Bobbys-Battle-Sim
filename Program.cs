@@ -12,6 +12,8 @@ namespace textGameMaybe
 {
     public class Program
     {
+        public string thisString = "hello?";
+
         static void Main(string[] args)
         {
             /*objectives: 1v1 battle sim with two "automated" characters. ask player for a name, make attributes for it, give random values, 
@@ -509,7 +511,7 @@ namespace textGameMaybe
             string boss = "";
             string treasure = "";
             string[] dungeonChoices = { "Dungeon of Dispair", "Dungeon of Greed", "Dungeon of Wrath" };
-            string[] bossChoices = { "The Lord of Dispair", "The Taker of all Things", "The Cruel One\t" };
+            string[] bossChoices = { "The Lord of Dispair", "The Taker of all Things", "The Cruel One" };
             string[] treasureChoices = { "The Soul Scythe", "The Daggers of Wealth", "The Mace of Suffering" };
             string roomNumber = "";
             int roomNumberCounter = 0;
@@ -517,11 +519,6 @@ namespace textGameMaybe
 
             BanditEnemy[] banditEnemies;
             GoblinEnemy[] goblinEnemies;
-
-
-
-
-
 
 
             
