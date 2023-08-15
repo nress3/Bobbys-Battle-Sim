@@ -540,6 +540,12 @@ namespace textGameMaybe
 
             Battle();
 
+            EnterRoom();
+
+            Battle();
+
+            EnterRoom();
+
 
 
 
@@ -669,8 +675,8 @@ namespace textGameMaybe
                                             numberOfEnemies--;
                                             goblinEnemies[i].Dead = true;
                                             Console.WriteLine($"{player.PlayerName} killed {goblinEnemies[i].GoblinName}!");
-                                            Console.ReadLine();
                                         }
+                                        Console.ReadLine();
 
                                         if (goblinEnemies[i].Dead != true)
                                         {
@@ -685,9 +691,9 @@ namespace textGameMaybe
                                                 numberOfEnemies--;
                                                 goblinEnemies[i].Dead = true;
                                                 Console.WriteLine($"{player.PlayerName} killed {goblinEnemies[i].GoblinName}!");
-                                                Console.ReadLine();
                                             }
                                         }
+                                        Console.ReadLine();
                                     }
                                     else
                                     {
@@ -702,9 +708,9 @@ namespace textGameMaybe
                                         {
                                             numberOfEnemies--;
                                             goblinEnemies[i].Dead = true;
-                                            Console.WriteLine($"{player.PlayerName} killed {goblinEnemies[i].GoblinName}!");
-                                            Console.ReadLine();
+                                            Console.WriteLine($"{player.PlayerName} killed {goblinEnemies[i].GoblinName}!"); 
                                         }
+                                        Console.ReadLine();
                                     }
                                 }
                             
@@ -807,11 +813,10 @@ namespace textGameMaybe
                                                         numberOfEnemies--;
                                                         goblinEnemies[i].Dead = true;
                                                         Console.WriteLine($"{player.PlayerName} killed {goblinEnemies[i].GoblinName}!");
-                                                        Console.ReadLine();
                                                     }
                                                     
                                                 }
-
+                                                Console.ReadLine();
                                             }
                                             attackCounter--;
                                             if (numberOfEnemies == 0)
