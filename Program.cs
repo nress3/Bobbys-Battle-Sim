@@ -826,7 +826,7 @@ namespace textGameMaybe
                                         //need to figure out attack code, and 3x it here
                                         break;
 
-                                    case "Entrance":
+                                    case "Hypnotize":
                                         //entrance ability goes here. i have no clue how to do this.
                                         break;
 
