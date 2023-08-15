@@ -917,6 +917,7 @@ namespace textGameMaybe
                     case 5:
                         minEnemies = 4;
                         maxEnemies = 6;
+                        BossEnemy theBoss = new BossEnemy(dungeon, random);
                         break;
                     default:
                         minEnemies = 25;

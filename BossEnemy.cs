@@ -22,7 +22,7 @@ namespace textGameMaybe
         private string[] bossTaunts = { "I'll show you the meaning of sorrow", "I'll take everything from you", "There will be no end to your suffering" };
         protected string bossTaunt = "";
 
-        BossEnemy(string dungeonName, Random bossRandom)
+        public BossEnemy(string dungeonName, Random bossRandom)
         {
             switch (dungeonName)
             {
