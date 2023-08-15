@@ -899,30 +899,35 @@ namespace textGameMaybe
             //"spawns" baddies
             void EnemyAppears(int a_RoomNumber)
             {
-
+                int minEnemies = 0;
                 int maxEnemies = 0;
 
                 switch (a_RoomNumber)
                 {
                     case 1:
+                        minEnemies = 1;
                         maxEnemies = 2;
                         break;
                     case 2:
+                        minEnemies = 1;
                         maxEnemies = 3;
                         break;
                     case 3:
                     case 4:
-                        maxEnemies = 4;
-                        break;
-                    case 5:
+                        minEnemies = 3;
                         maxEnemies = 5;
                         break;
+                    case 5:
+                        minEnemies = 4;
+                        maxEnemies = 6;
+                        break;
                     default:
+                        minEnemies = 25;
                         maxEnemies = 50;
                         break;
                 }
 
-                goblinEnemies = new GoblinEnemy[random.Next(1, maxEnemies + 1)];
+                goblinEnemies = new GoblinEnemy[random.Next(minEnemies, maxEnemies + 1)];
 
                 for (int i = 0; i < goblinEnemies.Length; i++)
                 {
