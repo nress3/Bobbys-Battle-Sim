@@ -528,6 +528,10 @@ namespace textGameMaybe
 
             DungeonSelect();
 
+            // what da heeeeeeeeek
+            // i mean you can just use a for loop here no? or a while loopbased on player health? 
+            // :)
+
             EnterRoom();
 
             Battle();
@@ -564,7 +568,7 @@ namespace textGameMaybe
                 {
                     
                     int dungeonSelection = GetNumberSelection();
-                    selectionInRange = true;
+                    selectionInRange = true; // oh i see, you're setting it here and not in the cases... maybe you should comment these things ...  :)
 
                     switch (dungeonSelection) 
                     {
@@ -625,11 +629,15 @@ namespace textGameMaybe
 
                     int battleSelection = GetNumberSelection();
                     
-                    switch (battleSelection)
+                    switch (battleSelection)// yeah you should probably just use two different methods inside this switch statenment instead of writing out all the code here
+                        // like maybe one method per player choice. Just easer to follow here
                     {
                         case 1:
 
                             Console.WriteLine("Which enemy would you like to attack?");
+
+                            // oh i see... you're printing out the goblins you can hit. 
+                            // boy a comment would be nice here
                             for (int i = 0; i < goblinEnemies.Length; i++)
                             {
                                 if (goblinEnemies[i].Dead != true)
@@ -642,28 +650,34 @@ namespace textGameMaybe
                                 }
                             }
 
+                            // so here you are just makign sure you are selecting an alive gobby
+                            // maybe print to the user if their selection is out of bounds
                             int attackChoice = 0;
                             bool selectionInRange = false;
                             do
                             {
                                 attackChoice = GetNumberSelection();
-                                if (attackChoice > 0 && attackChoice <= goblinEnemies.Length && goblinEnemies[attackChoice - 1].Dead == false)
+                                if (attackChoice > 0 && attackChoice <= goblinEnemies.Length && goblinEnemies[attackChoice - 1].Dead == false) 
                                 { selectionInRange = true; }
 
 
                             } while (selectionInRange == false);
 
-                            //finds selected goblin and player swings - the number of attacks is based on speed.
+                            //finds selected goblin and player swings - the number of attacks is based on speed.  -- Rye: You don't need to find it, you already know where it is!!
                             //this is a backup plan. i'd prefer if there was a turn order based on speed as well as # of attacks
                             for (int i = 0; i < goblinEnemies.Length; i++)
                             {
-                                if (goblinEnemies[i] == goblinEnemies[attackChoice - 1])
+                                if (goblinEnemies[i] == goblinEnemies[attackChoice - 1]) // so why are we looping through if we know which goblin the player wants to attack?
                                 {
                                     if (player.Speed > (3 * goblinEnemies[i].Speed)) //player is fast enough to hit twice
+                                        // *me throwing up* would it not just be way easier to make a variable here for number of hits and loop through the attack code 
+                                        // using a for loop based on number of hits instead of copy pasting code like three times in an if/else?
+                                        // you do have the number of attacks property that you can use easily here
                                     {
                                         Console.WriteLine($"{player.PlayerName} is fast enough to attack {goblinEnemies[i].GoblinName} twice!");
 
                                         int playerSwing = (player.Strength + random.Next(1, 7) + player.WeaponDamage) - goblinEnemies[i].Toughness;
+                                        // you should check to make sure player swing is NOT negative so that you don't heal the goblin
                                         goblinEnemies[i].Health -= playerSwing;
 
                                         Console.WriteLine($"{player.PlayerName} did {playerSwing} damage to {goblinEnemies[i].GoblinName}.");
@@ -716,7 +730,7 @@ namespace textGameMaybe
                             
                             }
 
-                            //ALL goblins hit back
+                            //ALL goblins hit back -- DAMN All goblins? this guy it getting fucked XD
                             if (numberOfEnemies > 0)
                             {
                                 Console.WriteLine("The goblins fight back!");
@@ -726,6 +740,8 @@ namespace textGameMaybe
                                     if (goblinEnemies[i].Dead != true)
                                     {
                                         int goblinSwing = (goblinEnemies[i].Strength + random.Next(1, 6)) - player.Toughness;
+                                        // swait you check for a negative value here but not in player :)
+                                        // but you do it too late? you need to check BEFORE you adjust the .Health value
                                         player.Health -= goblinSwing;
                                         if (goblinSwing <= 0)
                                         {
@@ -753,13 +769,14 @@ namespace textGameMaybe
                         case 2:
 
                             abilityCounter--;
-                            if (abilityCounter < 0)
+                            if (abilityCounter < 0) // the way this is implemented if the player is out of special attacks he still gets hit by ALL the goblins
+                                // not sure if intended but brutal if it was. :)
                             { Console.WriteLine("You have already used your special ability 3 times. You are out of ability uses."); }
                             else 
                             {
                                 Console.WriteLine($"You chose to use your ability: {player.PlayerAbility}.");
 
-                                switch (player.PlayerAbility)
+                                switch (player.PlayerAbility) // please god, just as before, make these all methods. makes life way easier
                                 {
                                     case "Revitalize":
                                         int heal = random.Next(5, 20);
@@ -775,7 +792,8 @@ namespace textGameMaybe
 
                                         while (attackCounter > 0 && numberOfEnemies > 0)
                                         {
-                                            Console.WriteLine("Which enemy would you like to attack?");
+                                            Console.WriteLine("Which enemy would you like to attack?"); // should choosing which enemy to attack not just be a method?
+                                            // you use it more than once and it's easy to apply in almost all cases sooooo
                                             for (int i = 0; i < goblinEnemies.Length; i++)
                                             {
                                                 if (goblinEnemies[i].Dead != true)
@@ -800,8 +818,10 @@ namespace textGameMaybe
 
                                             for (int i = 0; i < goblinEnemies.Length; i++)
                                             {
-                                                if (goblinEnemies[i] == goblinEnemies[(attackChoice - 1)])
+                                                if (goblinEnemies[i] == goblinEnemies[(attackChoice - 1)]) 
+                                                    // again, we already know which enemy they are hitting we dont need to loop to find it!
                                                 {
+                                                    // this attack code should be a method
                                                     int playerSwing = (player.Strength + random.Next(1, 7) + player.WeaponDamage) - goblinEnemies[i].Toughness;
                                                     goblinEnemies[i].Health -= playerSwing;
 
@@ -825,11 +845,13 @@ namespace textGameMaybe
                                             Console.WriteLine();
                                         }
                                         //fury ability goes here.
-                                        //need to figure out attack code, and 3x it here
+                                        //need to figure out attack code, and 3x it here -- RYE: I should never see you vopy paste code three times. ill literally go 0/1 IRL
                                         break;
 
                                     case "Hypnotize":
                                         //entrance ability goes here. i have no clue how to do this.
+                                        // RYE: if you want the enemies to not attack with this, you could just add a field//property called Asleep or something
+                                        // and check if they are not asleep before running their attack code
                                         break;
 
                                 }
@@ -844,6 +866,8 @@ namespace textGameMaybe
                                 {
                                     if (goblinEnemies[i].Dead != true)
                                     {
+                                        // please dear god make this a method im literally begging you its the third time ive seen this coder
+                                        // IF ONLY THERE WERE AN EASIER WEAY TO WRITE THIS ALL OUT MULTIPLE TIMES
                                         int goblinSwing = (goblinEnemies[i].Strength + random.Next(1, 6)) - player.Toughness;
                                         player.Health -= goblinSwing;
                                         if (goblinSwing <= 0)
@@ -869,14 +893,14 @@ namespace textGameMaybe
                             }
                             break;
                     }
-                } while ((player.Dead == false) && (numberOfEnemies != 0));
+                } while ((player.Dead == false) && (numberOfEnemies != 0)); // honestly if im comparing integers, i almost always use > or  < instead of == or !=
             }
 
             //player enters room, displayes enter room message, maaayyyyybe uses enemy appears method to "spawn" baddies
             void EnterRoom()
             {
                 roomNumberCounter++;
-                switch (roomNumberCounter)
+                switch (roomNumberCounter) // i see, this prints out which room youre entering. 
                 {
                     case 1:
                         roomNumber = "first";
@@ -893,12 +917,13 @@ namespace textGameMaybe
                         break;
                 }
                 Console.WriteLine($"You enter the {roomNumber} room of the {dungeon}.");
-                EnemyAppears(roomNumberCounter);
+                EnemyAppears(roomNumberCounter); // good use of a separatemethod inside this one!
                 Console.ReadLine();
             }
 
 
             //"spawns" baddies
+            // Good method!! 
             void EnemyAppears(int a_RoomNumber)
             {
                 int minEnemies = 0;
@@ -924,7 +949,8 @@ namespace textGameMaybe
                         maxEnemies = 6;
                         BossEnemy theBoss = new BossEnemy(dungeon, random);
                         break;
-                    default:
+                    default: // i low key might have led you astray talking about setting a default you can never get to. 
+                        // in retrospect i sdont think its really good practice
                         minEnemies = 25;
                         maxEnemies = 50;
                         break;
@@ -939,6 +965,8 @@ namespace textGameMaybe
 
             }
 
+            // you do have the methods, you just gotta plug them in! < 3 easy peasy
+            // you might just have to update it based on what your attacks are/can be but hey
             int PlayerSwing(int attackerStrength, int weaponBonus, int defenderToughness, int defenderHealth)
             {
                 int attackerSwing = ((attackerStrength + random.Next(1, 7)) + weaponBonus) - defenderToughness;
@@ -947,6 +975,7 @@ namespace textGameMaybe
                 return attackerSwing;
             }
 
+            // this might be easier if you pass in the goblin and access these properties on that object
             int GoblinSwing(int goblinStrength, int defenderToughness, int defenderHealth)
             {
                 int goblinSwing = (goblinStrength + random.Next(4)) - defenderToughness;
