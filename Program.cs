@@ -521,6 +521,74 @@ namespace textGameMaybe
             BanditEnemy[] banditEnemies;
             GoblinEnemy[] goblinEnemies;
 
+            /*
+            List<Character> roomEnemies = new List<Character>();
+
+
+            Console.WriteLine("writing the list out" + roomEnemies.Count + "," + roomEnemies.Capacity);
+            for(int i = 0; i < roomEnemies.Count; i++)
+            {
+                Console.WriteLine(roomEnemies[i]);
+            }
+
+            Character myChar = new Character(5,6,7);
+
+            roomEnemies.Add(myChar);
+            roomEnemies.Add(new Character());
+            roomEnemies.Add(new Character(1,2,3));
+            roomEnemies.Add(new Character());
+            roomEnemies.Add(new Character());
+
+
+            Console.WriteLine("writing the list out, " + roomEnemies.Count + "," + roomEnemies.Capacity);
+            for(int i = 0; i < roomEnemies.Count; i++)
+            {
+                Console.WriteLine(roomEnemies[i]);
+            }
+
+            roomEnemies.RemoveAt(2);
+            Console.WriteLine("writing the list out, " + roomEnemies.Count + "," + roomEnemies.Capacity);
+            for (int i = 0; i < roomEnemies.Count; i++)
+            {
+                Console.WriteLine(roomEnemies[i]);
+            }
+
+
+            Console.WriteLine("Does the list contain the myChar? " + roomEnemies.Contains(myChar));
+
+            roomEnemies.Remove(myChar);
+            Console.WriteLine("writing the list out, " + roomEnemies.Count + "," + roomEnemies.Capacity);
+            for (int i = 0; i < roomEnemies.Count; i++)
+            {
+                Console.WriteLine(roomEnemies[i]);
+            }
+
+
+            Console.WriteLine("Does the list contain the myChar? " + roomEnemies.Contains(myChar));
+
+            Character newChar = new Character(9, 8, 7);
+            roomEnemies.Insert(1, newChar); 
+            Console.WriteLine("writing the list out, " + roomEnemies.Count + "," + roomEnemies.Capacity);
+            for (int i = 0; i < roomEnemies.Count; i++)
+            {
+                Console.WriteLine(roomEnemies[i]);
+            }
+
+
+            roomEnemies.Clear();
+            roomEnemies.Capacity = 0;
+            Console.WriteLine("writing the list out, " + roomEnemies.Count + "," + roomEnemies.Capacity);
+            for (int i = 0; i < roomEnemies.Count; i++)
+            {
+                Console.WriteLine(roomEnemies[i]);
+            }
+
+
+            //returns the list as an array but you still have access to the list
+            Character[] myCharArray = roomEnemies.ToArray();
+            Console.WriteLine(myCharArray.Length);
+            */
+
 
             
 
