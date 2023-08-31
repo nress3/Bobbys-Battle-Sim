@@ -519,7 +519,9 @@ namespace textGameMaybe
             int abilityCounter = 3;
 
             BanditEnemy[] banditEnemies;
-            GoblinEnemy[] goblinEnemies;
+            //GoblinEnemy[] goblinEnemies;
+
+            List<GoblinEnemy> enemyGoblins = new List<GoblinEnemy>();
 
             /*
             List<Character> roomEnemies = new List<Character>();
@@ -689,10 +691,10 @@ namespace textGameMaybe
 
             void Battle()//this works except I can't get the loop to end. for some reason number of enemies is not going down when goblins die
             {
-                int numberOfEnemies = goblinEnemies.Length;
+                int numberOfEnemies = enemyGoblins.Count;
                 do
                 {
-                    Console.WriteLine($"number of enemies: {numberOfEnemies}");
+                    //Console.WriteLine($"number of enemies: {numberOfEnemies}");
                     Console.WriteLine("What will you do?");
                     Console.WriteLine("1. Attack an enemy.");
                     Console.WriteLine("2. Use your special ability.");
@@ -708,15 +710,15 @@ namespace textGameMaybe
 
                             int attackChoice = EnemyToAttack();
 
-                            if (player.Speed > (3 * goblinEnemies[attackChoice - 1].Speed)) 
+                            if (player.Speed > (3 * enemyGoblins[attackChoice - 1].Speed)) 
                             {
                                 player.NumberOfAttacks = 2;
-                                Console.WriteLine($"{player.PlayerName} is fast enough to attack {goblinEnemies[attackChoice - 1].GoblinName} twice!");
+                                Console.WriteLine($"{player.PlayerName} is fast enough to attack {enemyGoblins[attackChoice - 1].GoblinName} twice!");
 
                                 for (int i = player.NumberOfAttacks; i > 0; i--)
                                 {
-                                    PlayerSwing(player, goblinEnemies[attackChoice - 1], numberOfEnemies);
-                                    if (goblinEnemies[attackChoice - 1].Dead == true)
+                                    PlayerSwing(player, enemyGoblins[attackChoice - 1]);
+                                    if (enemyGoblins[attackChoice - 1].Dead == true)
                                     {
                                         break;
                                     }
@@ -724,7 +726,7 @@ namespace textGameMaybe
                             }
                             else
                             {
-                                PlayerSwing(player, goblinEnemies[attackChoice - 1], numberOfEnemies);
+                                PlayerSwing(player, enemyGoblins[attackChoice - 1]);
                             }
 
 
@@ -734,11 +736,11 @@ namespace textGameMaybe
                                 Console.WriteLine("The goblins fight back!");
                                 Console.WriteLine();
 
-                                for (int i = 0; i < goblinEnemies.Length; i++)
+                                for (int i = 0; i < enemyGoblins.Count; i++)
                                 {
-                                    if (goblinEnemies[i].Dead != true)
+                                    if (enemyGoblins[i].Dead != true)
                                     {
-                                        GoblinSwing(goblinEnemies[i], player);
+                                        GoblinSwing(enemyGoblins[i], player);
                                     }
                                 }
                             }
@@ -773,7 +775,7 @@ namespace textGameMaybe
                                             
                                             attackChoice = EnemyToAttack();
 
-                                            PlayerSwing(player, goblinEnemies[attackChoice - 1], numberOfEnemies);
+                                            PlayerSwing(player, enemyGoblins[attackChoice - 1]);
 
                                             attackCounter--;
                                             if (numberOfEnemies == 0)
@@ -797,16 +799,19 @@ namespace textGameMaybe
                                 Console.WriteLine("The goblins fight back!");
                                 Console.WriteLine();
 
-                                for (int i = 0; i < goblinEnemies.Length; i++)
+                                for (int i = 0; i < enemyGoblins.Count; i++)
                                 {
-                                    if (goblinEnemies[i].Dead != true)
+                                    if (enemyGoblins[i].Dead != true)
                                     {
-                                        GoblinSwing(goblinEnemies[i], player);    
+                                        GoblinSwing(enemyGoblins[i], player);    
                                     }
                                 }
                             }
                             break;
                     }
+
+                    numberOfEnemies = enemyGoblins.Count; // fixes the number of enemies loop by checking again what the number is
+
                 } while ((player.Dead == false) && (numberOfEnemies > 0)); // honestly if im comparing integers, i almost always use > or  < instead of == or !=
             }
 
@@ -861,7 +866,6 @@ namespace textGameMaybe
                     case 5:
                         minEnemies = 4;
                         maxEnemies = 6;
-                        BossEnemy theBoss = new BossEnemy(dungeon, random);
                         break;
                     default: // i low key might have led you astray talking about setting a default you can never get to. 
                         // in retrospect i sdont think its really good practice
@@ -870,11 +874,13 @@ namespace textGameMaybe
                         break;
                 }
 
-                goblinEnemies = new GoblinEnemy[random.Next(minEnemies, maxEnemies + 1)];
-
-                for (int i = 0; i < goblinEnemies.Length; i++)
+                for (int i = 0; i < random.Next(minEnemies, maxEnemies + 1); i++)
                 {
-                    goblinEnemies[i] = new GoblinEnemy(random);
+                    enemyGoblins.Add(new GoblinEnemy(random));
+                }
+                if (a_RoomNumber == 5)
+                {
+                    BossEnemy theBoss = new BossEnemy(dungeon, random);
                 }
 
             }
@@ -883,7 +889,7 @@ namespace textGameMaybe
             // you might just have to update it based on what your attacks are/can be but hey
 
 
-            void PlayerSwing(PlayerCharacter playerAttacker, GoblinEnemy enemy, int enemiesNumber)
+            void PlayerSwing(PlayerCharacter playerAttacker, GoblinEnemy enemy)
             {
                 int playerSwing = (player.Strength + random.Next(1, 7) + player.WeaponDamage) - enemy.Toughness;
                 if (playerSwing <= 0)
@@ -896,14 +902,13 @@ namespace textGameMaybe
                     enemy.Health -= playerSwing;
                     Console.WriteLine($"{player.PlayerName} did {playerSwing} damage to {enemy.GoblinName} with their {player.PlayerWeapon}.");
                     Console.WriteLine($"{enemy.GoblinName} has {enemy.Health} HP remaining.");
-                    Console.WriteLine();
 
                     if (enemy.Health <= 0)
                     {
                         enemy.Dead = true;
-                        enemiesNumber -= 1;
                         Console.WriteLine($"{player.PlayerName} killed {enemy.GoblinName}!");
-                        Console.WriteLine($"enemies within method: {enemiesNumber}"); //this is the source of the bug
+                        enemyGoblins.Remove(enemy);
+                        //Console.WriteLine($"enemies within method: {enemiesNumber}"); //this is the source of the bug
                         //Console.WriteLine($"{numberOfEnemies}");
                     }
                 }
@@ -924,7 +929,6 @@ namespace textGameMaybe
                     playerDefender.Health -= goblinSwing;
                     Console.WriteLine($"{goblin.GoblinName} did {goblinSwing} damage to {playerDefender.PlayerName} with its {goblin.GoblinWeapon}.");
                     Console.WriteLine($"{playerDefender.PlayerName} has {playerDefender.Health} HP remaining.");
-                    Console.WriteLine();
 
                     if (playerDefender.Health <= 0)
                     {
@@ -940,15 +944,15 @@ namespace textGameMaybe
             {
                 Console.WriteLine("Which enemy would you like to attack?");
 
-                for (int i = 0; i < goblinEnemies.Length; i++)
+                for (int i = 0; i < enemyGoblins.Count; i++)
                 {
-                    if (goblinEnemies[i].Dead != true)
+                    if (enemyGoblins[i].Dead != true)
                     {
-                        Console.WriteLine($"{i + 1}: {goblinEnemies[i].GoblinName}");
+                        Console.WriteLine($"{i + 1}: {enemyGoblins[i].GoblinName}");
                     }
                     else
                     {
-                        Console.WriteLine($"{i + 1}: {goblinEnemies[i].GoblinName} is dead. He won't get more dead.");
+                        Console.WriteLine($"{i + 1}: {enemyGoblins[i].GoblinName} is dead. He won't get more dead.");
                     }
                 }
                 int attackThisGuy = 0;
@@ -956,7 +960,7 @@ namespace textGameMaybe
                 do
                 {
                     attackThisGuy = GetNumberSelection();
-                    if (attackThisGuy > 0 && attackThisGuy <= goblinEnemies.Length && goblinEnemies[attackThisGuy - 1].Dead == false)
+                    if (attackThisGuy > 0 && attackThisGuy <= enemyGoblins.Count && enemyGoblins[attackThisGuy - 1].Dead == false)
                     { selectionInRange = true; }
 
                 } while (selectionInRange == false);
